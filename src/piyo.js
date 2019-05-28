@@ -1,0 +1,1 @@
+exports.piyo = 10;
