@@ -14,6 +14,7 @@ exports.start = (canvas) => {
         //drawCircle(ctx, pos, radius);
         drawCircle2(ctx, pos, radius);
 
+        // eslint-disable-next-line no-unused-vars
         function drawCircle(ctx, pos, radius) {
             ctx.strokeStyle = getRandomColor();
             ctx.lineWidth = 5;
@@ -55,6 +56,7 @@ exports.start = (canvas) => {
                 + getRandomInt(256) + ', 1)';
         }
 
+        // eslint-disable-next-line no-unused-vars
         function refresh(ctx) {
             ctx.fillStyle = 'rgba(255, 255, 255, 1)';
             //ctx.fillStyle = 'green';
