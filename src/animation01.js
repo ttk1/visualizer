@@ -1,43 +1,64 @@
-const width = 500;
-const height = 500;
+const width = 700;
+const height = 700;
 
 exports.start = (canvas) => {
     canvas.width = width;
     canvas.height = height;
-
     const ctx = canvas.getContext('2d');
-
-    ctx.strokeStyle = '#F00';
-    ctx.lineWidth = 5;
-
-    window.setInterval(callback, 500);
-
+    window.setInterval(callback, 50);
 
     function callback() {
-        refresh(ctx);
-        let start = getRandomPos();
-        let end = getRandomPos();
-        drawLine(ctx, start, end);
-    }
+        //refresh(ctx);
+        let pos = getRandomPos();
+        let radius = getRandomInt(50);
+        //drawCircle(ctx, pos, radius);
+        drawCircle2(ctx, pos, radius);
 
-    function refresh(ctx) {
-        //ctx.fillStyle = 'rgba(255, 255, 255, 1)';
-        ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, width, height);
-    }
+        function drawCircle(ctx, pos, radius) {
+            ctx.strokeStyle = getRandomColor();
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            //ctx.moveTo(pos.x + radius, pos.y);
+            ctx.arc(pos.x, pos.y, radius, 0, Math.PI * 2, true);
+            ctx.stroke();
+        }
 
+        function drawCircle2(ctx, pos, radius) {
+            ctx.fillStyle = getRandomColor(true);
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, radius, 0, Math.PI * 2, true);
+            ctx.fill();
+        }
 
-    function drawLine(ctx, start, end) {
-        ctx.beginPath();
-        ctx.moveTo(start.x, start.y);
-        ctx.lineTo(end.x, end.y);
-        ctx.stroke();
-    }
+        function getRandomPos() {
+            const pos = {};
+            pos.x = getRandomInt(width);
+            pos.y = getRandomInt(height);
+            return pos;
+        }
 
-    function getRandomPos() {
-        const pos = {};
-        pos.x = Math.floor(Math.random() * 500);
-        pos.y = Math.floor(Math.random() * 500);
-        return pos;
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        function getRandomColor(alpha) {
+            if (alpha) {
+                return 'rgba('
+                + getRandomInt(256) + ', '
+                + getRandomInt(256) + ', '
+                + getRandomInt(256) + ', '
+                + Math.random() + ')';
+            }
+            return 'rgba('
+                + getRandomInt(256) + ', '
+                + getRandomInt(256) + ', '
+                + getRandomInt(256) + ', 1)';
+        }
+
+        function refresh(ctx) {
+            ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+            //ctx.fillStyle = 'green';
+            ctx.fillRect(0, 0, width, height);
+        }
     }
 }
