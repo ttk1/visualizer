@@ -1,1 +1,0 @@
-exports.piyo = 10;
