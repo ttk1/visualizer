@@ -15,7 +15,7 @@ class Ball {
         if (this.pos.x < 0 || width < this.pos.x) {
             this.reboundX();
         }
-        if (this.pos.y < 0 || width < this.pos.y) {
+        if (this.pos.y < 0 || height < this.pos.y) {
             this.reboundY();
         }
     }
@@ -33,9 +33,8 @@ exports.start = (canvas) => {
     canvas.width = width;
     canvas.height = height;
     const ctx = canvas.getContext('2d');
-    const balls = [];
 
-    // ここでボールをいくつか追加
+    const balls = [];
     for(let i = 0; i < 100; i++) {
         let pos = getRandomPos();
         let radius = 10;
@@ -76,7 +75,7 @@ exports.start = (canvas) => {
     }
 
     function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
+        return Math.floor(getRandomNum(max));
     }
 
     function getRandomColor(alpha) {
@@ -94,8 +93,8 @@ exports.start = (canvas) => {
     }
 
     function refresh(ctx) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 1)';
-        //ctx.fillStyle = 'green';
+        //ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+        ctx.fillStyle = 'white';
         ctx.fillRect(0, 0, width, height);
     }
 }

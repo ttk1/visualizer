@@ -1,4 +1,4 @@
-const main = () => {
+window.onload = () => {
     const container = document.getElementById('container');
     const canvas = document.createElement('canvas');
     container.appendChild(canvas);
@@ -10,7 +10,7 @@ const main = () => {
         case 'animation01':
             return require('./animation01.js').start(canvas);
         case 'motion01':
-                return require('./motion01.js').start(canvas);
+            return require('./motion01.js').start(canvas);
     }
 }
 
@@ -20,5 +20,3 @@ function getParam(key) {
         .map(x => x.split('='))
         .find(x => x[0] == key)[1];
 }
-
-window.onload = main;
