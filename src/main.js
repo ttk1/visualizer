@@ -9,6 +9,8 @@ const main = () => {
             return require('./randomlines.js').start(canvas);
         case 'animation01':
             return require('./animation01.js').start(canvas);
+        case 'motion01':
+                return require('./motion01.js').start(canvas);
     }
 }
 
