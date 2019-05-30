@@ -40,8 +40,8 @@ exports.start = (canvas) => {
         let pos = getRandomPos();
         let radius = 10;
         let velocity = {
-            x: getRandomInt(10),
-            y: getRandomInt(10)
+            x: getRandomNum(5),
+            y: getRandomNum(5)
         }
         let color = getRandomColor();
         balls.push(new Ball(pos, radius, velocity, color));
@@ -66,9 +66,13 @@ exports.start = (canvas) => {
 
     function getRandomPos() {
         const pos = {};
-        pos.x = getRandomInt(width);
-        pos.y = getRandomInt(height);
+        pos.x = getRandomNum(width);
+        pos.y = getRandomNum(height);
         return pos;
+    }
+
+    function getRandomNum(max) {
+        return Math.random() * max;
     }
 
     function getRandomInt(max) {
