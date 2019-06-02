@@ -12,6 +12,7 @@ class Field {
         this.canvas = canvas;
         this.canvas.width = field_width * cell_size;
         this.canvas.height = field_height * cell_size;
+        this.canvas.style.border = 'solid 1px black';
         this.ctx = this.canvas.getContext('2d');
         this.field = [];
         this.reset();
