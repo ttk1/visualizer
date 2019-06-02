@@ -1,6 +1,7 @@
-const field_width = 5;
-const field_height = 5;
+const field_width = 100;
+const field_height = 100;
 const cell_size = 7;
+const interval = 100;
 let interval_id = null;
 
 class Field {
@@ -16,11 +17,19 @@ class Field {
         this.reset();
 
         this.canvas.addEventListener('click', (e) => {
+            if (interval_id != null) {
+                return;
+            }
+
             let rect = e.target.getBoundingClientRect();
             let x = Math.floor((e.clientX - rect.left) / cell_size);
             let y = Math.floor((e.clientY - rect.top) / cell_size);
+            if (this.get(x ,y)) {
+                this.unfill(x, y);
+            } else {
+                this.fill(x, y);
+            }
             this.flip(x, y);
-            this.fill(x, y);
         })
     }
 
@@ -101,6 +110,12 @@ class Field {
         this.ctx.fillStyle = 'black';
         this.ctx.fillRect(x * cell_size, y * cell_size, cell_size, cell_size);
     }
+
+    unfill(x, y) {
+        this.ctx.beginPath();
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillRect(x * cell_size, y * cell_size, cell_size, cell_size);
+    }
 }
 
 function init_button(field) {
@@ -121,7 +136,7 @@ function init_button(field) {
 
     start_button.addEventListener('click', () => {
         if (interval_id == null) {
-            interval_id = window.setInterval(animate, 1000);
+            interval_id = window.setInterval(animate, interval);
         }
 
         function animate() {
