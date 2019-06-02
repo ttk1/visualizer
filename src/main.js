@@ -11,6 +11,8 @@ window.onload = () => {
             return require('./animation01.js').start(canvas);
         case 'motion01':
             return require('./motion01.js').start(canvas);
+        case 'lifegame':
+            return require('./lifegame.js').start(canvas);
     }
 }
 
