@@ -121,7 +121,8 @@ class Field {
 
 function init_button(field) {
     const container = document.getElementById('container');
-    const button_area = document.createElement('p');
+    const button_area = document.createElement('div');
+    button_area.style.display="block";
     container.appendChild(button_area);
 
     const start_button = document.createElement('button');
