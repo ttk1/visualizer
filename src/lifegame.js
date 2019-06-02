@@ -39,8 +39,8 @@ class Field {
             for (let y = 0; y < this.height; y++) {
                 next_field[x][y] = isLiveCellNextStep(this.field, x, y);
             }
-            this.field = next_field;
         }
+        this.field = next_field;
 
         function isLiveCellNextStep(field, x, y) {
             let count = countLiveNeighbors(field, x, y);
