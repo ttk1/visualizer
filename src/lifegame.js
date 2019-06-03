@@ -1,10 +1,10 @@
-const field_width = 50;
-const field_height = 50;
+const field_width = 25;
+const field_height = 25;
 const cell_size = 15;
 const interval = 100;
 
 class Field {
-    constructor(width, height, cell_size, canvas) {
+    constructor(width, height, cell_size, field, canvas) {
         this.step_num = 0;
         this.width = width;
         this.height = height;
@@ -14,8 +14,20 @@ class Field {
         this.canvas.height = height * cell_size;
         this.canvas.style.border = 'solid 1px black';
         this.ctx = this.canvas.getContext('2d');
-        this.field = [];
-        this.reset();
+        if (field) {
+            this.field = field;
+            this.refresh();
+            for (let x = 0; x < this.width; x++) {
+                for (let y = 0; y < this.height; y++) {
+                    if (this.get(x, y)) {
+                        this.fill(x, y);
+                    }
+                }
+            }
+        } else {
+            this.field = [];
+            this.reset();
+        }
         this.interval = interval;
         this.interval_id = null;
 
@@ -130,7 +142,7 @@ class Field {
         //ctx.fillStyle = 'rgba(255, 255, 255, 1)';
         this.ctx.fillStyle = 'white';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        
+
         this.ctx.strokeStyle = 'gray';
         this.ctx.lineWidth = 1;
         for (let x = 1; x < this.width; x++) {
@@ -172,17 +184,38 @@ function init_button(field) {
     stop_button.innerHTML = 'ストップ';
     const reset_button = document.createElement('button');
     reset_button.innerHTML = 'リセット';
+    const save_button = document.createElement('button');
+    save_button.innerHTML = 'セーブ';
 
     button_area.appendChild(start_button);
     button_area.appendChild(stop_button);
     button_area.appendChild(reset_button);
+    button_area.appendChild(save_button);
 
     start_button.addEventListener('click', () => field.start());
     stop_button.addEventListener('click', () => field.stop());
     reset_button.addEventListener('click', () => field.reset());
+    save_button.addEventListener('click', () => {
+        const savedata = {
+            field_width: field.width,
+            field_height: field.height,
+            cell_size: field.cell_size,
+            field: field.field
+        };
+        const encoded = btoa(JSON.stringify(savedata))
+            .replace('=', '').replace('+', '-').replace('/', '_');
+        window.location.search = '?mode=lifegame&data=' + encoded;
+    });
 }
 
-exports.start = (canvas) => {
-    const field = new Field(field_width, field_height, cell_size, canvas);
+exports.start = (canvas, encoded) => {
+    let field;
+    if (encoded) {
+        const savedata = JSON.parse(atob(encoded.replace('-', '+').replace('_', '/')));
+        field = new Field(savedata.field_width, savedata.field_height,
+            savedata.cell_size, savedata.field, canvas);
+    } else {
+        field = new Field(field_width, field_height, cell_size, null, canvas);
+    }
     init_button(field);
 }

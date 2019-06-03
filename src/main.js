@@ -12,13 +12,17 @@ window.onload = () => {
         case 'motion01':
             return require('./motion01.js').start(canvas);
         case 'lifegame':
-            return require('./lifegame.js').start(canvas);
+            return require('./lifegame.js').start(canvas, getParam('data'));
     }
 }
 
 function getParam(key) {
-    return window.location.search
+    try {
+        return window.location.search
         .replace(/^\?/, '').split('&')
         .map(x => x.split('='))
         .find(x => x[0] == key)[1];
+    } catch(e) {
+        return undefined;
+    }
 }
