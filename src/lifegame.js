@@ -1,6 +1,6 @@
-const field_width = 100;
-const field_height = 100;
-const cell_size = 7;
+const field_width = 50;
+const field_height = 50;
+const cell_size = 15;
 const interval = 100;
 
 class Field {
@@ -130,25 +130,40 @@ class Field {
         //ctx.fillStyle = 'rgba(255, 255, 255, 1)';
         this.ctx.fillStyle = 'white';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.ctx.strokeStyle = 'gray';
+        this.ctx.lineWidth = 1;
+        for (let x = 1; x < this.width; x++) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(x * this.cell_size + 0.5, 0);
+            this.ctx.lineTo(x * this.cell_size + 0.5, this.canvas.height);
+            this.ctx.stroke();
+        }
+        for (let y = 1; y < this.height; y++) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(0, y * this.cell_size + 0.5);
+            this.ctx.lineTo(this.canvas.height, y * this.cell_size + 0.5);
+            this.ctx.stroke();
+        }
     }
 
     fill(x, y) {
         this.ctx.beginPath();
         this.ctx.fillStyle = 'black';
-        this.ctx.fillRect(x * this.cell_size, y * this.cell_size, this.cell_size, this.cell_size);
+        this.ctx.fillRect(x * this.cell_size + 0.5, y * this.cell_size + 0.5, this.cell_size - 0.5, this.cell_size - 0.5);
     }
 
     unfill(x, y) {
         this.ctx.beginPath();
         this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(x * this.cell_size, y * this.cell_size, this.cell_size, this.cell_size);
+        this.ctx.fillRect(x * this.cell_size + 0.5, y * this.cell_size + 0.5, this.cell_size - 0.5, this.cell_size - 0.5);
     }
 }
 
 function init_button(field) {
     const container = document.getElementById('container');
     const button_area = document.createElement('div');
-    button_area.style.display = "block";
+    button_area.style.display = 'block';
     container.appendChild(button_area);
 
     const start_button = document.createElement('button');
